@@ -10,9 +10,14 @@ RUN mkdir -p /opt/oers/bin && mkdir -p /opt/oers/lib && mkdir -p /opt/oers/conf
 ADD ./target/oers-core*.jar /opt/oers/lib
 ADD ./target/lib/* /opt/oers/lib/
 ADD oers.sh /opt/oers/bin
+ADD log4j.properties /opt/oers/conf
 RUN chmod +x /opt/oers/bin/oers.sh
 
 ENV OERS_HOME /opt/oers
+
+WORKDIR ${OERS_HOME}
+
+EXPOSE 8080
 
 CMD ["/opt/oers/bin/oers.sh"]
 
