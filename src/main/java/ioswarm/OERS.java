@@ -135,7 +135,7 @@ public class OERS extends OERSService {
 		Vertx.clusteredVertx(opts, res -> {
 			if (res.succeeded()) {
 				final Vertx vertx = res.result();
-				vertx.deployVerticle("OERS", hdl -> {
+				vertx.deployVerticle("ioswarm.OERS", hdl -> {
 					if (hdl.succeeded())
 						log.info("OERS startd at "+hdl.result());
 					else

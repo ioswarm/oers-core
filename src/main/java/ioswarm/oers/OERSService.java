@@ -11,8 +11,10 @@ import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Verticle;
+import io.vertx.core.json.JsonObject;
 import ioswarm.oers.annotations.NoBind;
 import ioswarm.oers.annotations.Worker;
+import ioswarm.oers.util.Util;
 import ioswarm.vertx.service.Service;
 
 public class OERSService extends Service {
@@ -107,6 +109,24 @@ public class OERSService extends Service {
 	@Override
 	public void stop() throws Exception {
 		undeployVerticles();
+	}
+	
+	public JsonObject errorResponse(int statusCode, String message, int internalErrorCode, String cause) {
+		JsonObject msg = new JsonObject()
+			.put("statusCode", statusCode)
+			.put("message", message)
+			.put("internalErrorCode", internalErrorCode)
+			.put("cause", cause)
+			.put("class", this.getClass().getName());
+		
+		vertx.eventBus().send("oers.logging", msg);
+		
+		return msg;
+	}
+	
+	public JsonObject createErrorResponse(int statusCode, String message, int internalErrorCode, Throwable cause) {
+		error(message, cause);
+		return errorResponse(statusCode, message, internalErrorCode, Util.getStackTrace(cause));
 	}
 	
 }
