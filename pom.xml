@@ -78,6 +78,10 @@
 			<groupId>io.vertx</groupId>
 			<artifactId>vertx-jdbc-client</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>ioswarm</groupId>
+			<artifactId>vertx-es-cassandra</artifactId>
+		</dependency>
 	</dependencies>
 	
 	<build>
