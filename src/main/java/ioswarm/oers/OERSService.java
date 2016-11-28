@@ -10,6 +10,7 @@ import io.vertx.core.AsyncResult;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
+import io.vertx.core.Verticle;
 import ioswarm.oers.annotations.NoBind;
 import ioswarm.oers.annotations.Worker;
 import ioswarm.vertx.service.Service;
@@ -78,6 +79,18 @@ public class OERSService extends Service {
 				}
 			});
 		}, handler);
+	}
+	
+	public void deploy(String verticleName) {
+		deploy(verticleName, null);
+	}
+	
+	public void deploy(Class<? extends Verticle> verticle, Handler<AsyncResult<String>> handler) {
+		deploy(verticle.getName(), handler);
+	}
+	
+	public void deploy(Class<? extends Verticle> verticle) {
+		deploy(verticle, null);
 	}
 	
 	protected void undeployVerticles() throws Exception {
