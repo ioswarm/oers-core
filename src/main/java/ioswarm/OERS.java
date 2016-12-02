@@ -123,7 +123,8 @@ public class OERS extends OERSService {
 				.setClustered(true)
 				.setClusterManager(mgr)
 				.setClusterHost(localIp)
-				.setClusterPort(localPort);
+				.setClusterPort(localPort)
+				.setWorkerPoolSize(100);
 				
 		if (publicIp != null) opts.setClusterPublicHost(publicIp);
 		if (publicPort>=0) opts.setClusterPublicPort(publicPort);
