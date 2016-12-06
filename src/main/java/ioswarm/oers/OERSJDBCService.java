@@ -8,6 +8,7 @@ import io.vertx.ext.jdbc.JDBCClient;
 public abstract class OERSJDBCService extends OERSService {
 
 	protected JsonObject jdbcconf;
+	private JDBCClient client;
 	
 	public abstract String datasource();
 	
@@ -26,7 +27,13 @@ public abstract class OERSJDBCService extends OERSService {
 	}
 	
 	public JDBCClient jdbcClient() {
-		return JDBCClient.createShared(vertx, jdbcConfig(), datasource());
+		if (client == null) client = JDBCClient.createShared(vertx, jdbcConfig(), datasource());
+		return client;
+	}
+	
+	@Override
+	public void stop() throws Exception {
+		if (client != null) client.close();
 	}
 	
 	public JsonObject connectionError(Throwable cause) {
