@@ -4,6 +4,7 @@ package ioswarm;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
@@ -108,11 +109,19 @@ public class OERS extends OERSService {
 		config.setProperty("hazelcast.local.localAddress", localIp);
 		config.getNetworkConfig().setPort(clusterPort);
 		
-		if (publicIp != null) {
+		if (System.getenv("MULTICAST_GROUP") != null) {
+			config.getNetworkConfig().getJoin().getMulticastConfig()
+				.setEnabled(true)
+				.setMulticastGroup(System.getenv("MULTICAST_GROUP"));
+		} else if (publicIp != null || System.getenv("MEMBERS") != null) {
 			config.getNetworkConfig().setPublicAddress(publicIp);
 			config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
 			config.getNetworkConfig().getJoin().getTcpIpConfig().setEnabled(true);
-			// TODO add Member
+			
+			if (System.getenv("MEMBERS") != null) 
+				config.getNetworkConfig().getJoin().getTcpIpConfig().setMembers(Arrays.asList(Util.splitLine(System.getenv("MEMBERS"), ",")));
+			
+			// TODO add Member extended
 			// docker run -it --name oers1 -P -p 5701:5701 -p 8080:8080 -p 4001:4000 -e PUBLIC_IP=192.168.178.79 -e PUBLIC_PORT=4001 -e LOCAL_PORT=4000 -e CLUSTER_PORT=5701 ioswarm/oers
 			
 		}

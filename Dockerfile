@@ -11,6 +11,7 @@ ADD ./target/oers-core*.jar /opt/oers/lib
 ADD ./target/lib/* /opt/oers/lib/
 ADD oers.sh /opt/oers/bin
 ADD log4j.properties /opt/oers/conf
+ADD default-cluster.xml /opt/oers/conf
 RUN chmod +x /opt/oers/bin/oers.sh
 
 ENV OERS_HOME /opt/oers
