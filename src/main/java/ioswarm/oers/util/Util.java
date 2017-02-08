@@ -113,6 +113,7 @@ public class Util {
 //		Pattern p = Pattern.compile(regex);
 //		Matcher m = p.matcher(text);
 //		return m.matches();
+		if (text == null) return false;
 		return matchCount(regex, text) > 0;
 	}
 	

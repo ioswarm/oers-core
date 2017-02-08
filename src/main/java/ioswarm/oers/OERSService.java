@@ -111,7 +111,7 @@ public class OERSService extends Service {
 		undeployVerticles();
 	}
 	
-	public JsonObject errorResponse(int statusCode, String message, int internalErrorCode, String cause) {
+	public JsonObject messageResponse(int statusCode, String message, int internalErrorCode, String cause) {
 		JsonObject msg = new JsonObject()
 			.put("statusCode", statusCode)
 			.put("message", message)
@@ -126,7 +126,7 @@ public class OERSService extends Service {
 	
 	public JsonObject createErrorResponse(int statusCode, String message, int internalErrorCode, Throwable cause) {
 		error(message, cause);
-		return errorResponse(statusCode, message, internalErrorCode, Util.getStackTrace(cause));
+		return messageResponse(statusCode, message, internalErrorCode, Util.getStackTrace(cause));
 	}
 	
 }
