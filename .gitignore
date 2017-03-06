@@ -1,1 +1,3 @@
 /target/
+/export-dev.sh
+/export-prod.sh
