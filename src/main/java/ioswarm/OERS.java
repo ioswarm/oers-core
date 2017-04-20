@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.hazelcast.config.Config;
-import com.typesafe.config.ConfigFactory;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -56,6 +55,8 @@ public class OERS extends OERSService {
 				verticles.add(cfg.getString("verticle"));
 			}
 		
+		verticles.add("ioswarm.oers.metrics.MetricsEndpoint");
+		
 		// start deployment
 		for (String v : verticles)
 			deploy(v, hdl -> {
@@ -92,7 +93,7 @@ public class OERS extends OERSService {
 
 	public static void main(String[] args) throws Exception {
 		final Logger log = LoggerFactory.getLogger("OERS");
-		final com.typesafe.config.Config cfg = ConfigFactory.load();
+//		final com.typesafe.config.Config cfg = ConfigFactory.load();
 		
 		// TODO change IP to HOST add JVM Arguments and Config
 		String localIp = (System.getenv("LOCAL_IP") == null) ? "localhost" : System.getenv("LOCAL_IP"); 

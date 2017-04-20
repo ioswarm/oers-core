@@ -82,6 +82,11 @@
 			<groupId>ioswarm</groupId>
 			<artifactId>vertx-es-cassandra</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.fusesource</groupId>
+			<artifactId>sigar</artifactId>
+			<version>1.6.4</version>
+		</dependency>
 	</dependencies>
 	
 	<build>

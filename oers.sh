@@ -33,4 +33,4 @@ location of your Java installation."
 fi
 
 
-exec "$JAVACMD" -Dvertx.logger-delegate-factory-class-name=io.vertx.core.logging.Log4jLogDelegateFactory -Dlog4j.configuration=log4j.properties -classpath "$CLASSPATH" ioswarm.OERS "$@"
+exec "$JAVACMD" -Djava.library.path="${OERS_HOME}/lib" -Dvertx.logger-delegate-factory-class-name=io.vertx.core.logging.Log4jLogDelegateFactory -Dlog4j.configuration=log4j.properties -classpath "$CLASSPATH" ioswarm.OERS "$@"

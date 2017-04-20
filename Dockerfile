@@ -9,6 +9,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y curl tar net-tool
 RUN mkdir -p /opt/oers/bin && mkdir -p /opt/oers/lib && mkdir -p /opt/oers/conf
 ADD ./target/oers-core*.jar /opt/oers/lib
 ADD ./target/lib/* /opt/oers/lib/
+ADD ./lib/libsigar-amd64-linux.so /opt/oers/lib
 ADD oers.sh /opt/oers/bin
 ADD log4j.properties /opt/oers/conf
 ADD default-cluster.xml /opt/oers/conf
