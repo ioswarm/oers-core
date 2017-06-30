@@ -13,6 +13,9 @@ public class MetricsEndpoint extends OERSHttpService {
 	public void start() {
 		deploy(OSMetricsService.class);
 		
+		getRouter().get("/api/heartbeat").handler(this::handleHeartBeat);
+		
+		getRouter().get("/oers/metrics/heartbeat").handler(this::handleHeartBeat);
 		getRouter().get("/oers/metrics/os").handler(this::handleGetOsMetrics);
 	}
 	
@@ -25,6 +28,11 @@ public class MetricsEndpoint extends OERSHttpService {
 				resp.setStatusCode(500).end("");
 			}
 		});
+	}
+	
+	public void handleHeartBeat(RoutingContext ctx) {
+		final HttpServerResponse resp = ctx.response();
+		resp.end();
 	}
 	
 }
